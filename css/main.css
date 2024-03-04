@@ -5,5 +5,18 @@
 }
 
 body {
-    background-color: aquamarine;
+    background-color: #4ECDC4;
+}
+
+div {
+    max-width: 500px;
+    margin: 300px auto;
+    p {
+        background-color: #292F36;
+        color: #F7FFF7;
+        font-size: 3rem;
+        padding: 1rem; 
+        text-align: center;
+        border-radius: 1rem;  
+    }
 }
