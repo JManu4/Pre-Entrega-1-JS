@@ -3,15 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+
+
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- bootstrapicon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- aos animation -->
+    <!-- <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> -->
+
+
+    <!-- css -->
     <link rel="stylesheet" href="./css/main.css">
+    <script src="./js/main.js" defer></script>
+
     <title>Pre Entrega 1 - JS</title>
 </head>
 <body>
+
+    <header>
+        <h1>Inventario</h1>
+    </header>
+
+    <main>
+        <section class="inv_opciones container">
+            <div class="inv_opcion inv_opcion_todo ">
+                Todo <br> <i class="bi bi-box-seam"></i>
+            </div>
+            <div class="inv_opcion inv_opcion_buscar">
+                Buscar<br><i class="bi bi-search-heart"></i>
+            </div>
+            <div class="inv_opcion inv_opcion_registrar">
+                Registar<br><i class="bi bi-save2"></i>
+            </div> 
+        </section>
+        <!-- <section class="container todo">
+            <form action="">
+            </form>
+        </section> -->
+
+
+        <section class="seccionInventario container">
+            <table class="table todoElInventario">
+            </table>
+        </section>
+
+
+        <section class="container buscar">
+            <form id="formBuscarInvisible" class="formBuscarInvisible" action="" method="post">
+                <div class="row">
+                    <div class="col">
+                        <select id="buscarTipoPrendaId" class="form-select" aria-label="Default select example">
+                            <option value="" selected>Tipo de Prenda</option>
+                            <option value="Vestido">Vestido</option>
+                            <option value="Blusa">Blusa</option>
+                            <option value="Short">Short</option>
+                            <option value="Falda">Falda</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select id="buscarTallaId" class="form-select" aria-label="Default select example">
+                            <option value="" selected>Talla</option>
+                            <option value="ch">C - Chica</option>
+                            <option value="md">M - Mediana</option>
+                            <option value="gr">G - Grande</option>
+                            <option value="eg">EG - ExtraGrande</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select id="buscarColorId" class="form-select" aria-label="Default select example">
+                            <option value="" selected>Color</option>
+                            <option value="Amarillo">🟡 Amarillo</option>
+                            <option value="Azul">🔵 Azul</option>
+                            <option value="Negro">⚫️ Negro</option>
+                            <option value="Rojo">🔴 Rojo</option>
+                            <option value="Verde">🟢 Verde</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="botonesRegistro row">
+                    <button type="submit" class="btn btn-secondary buscarBtn">Buscar</button>
+                    <button type="reset" class="btn btn-danger buscarLimpiarBtn">Limpiar</button>
+                </div>
+            </form>
+        </section>
+        <section class="container resultadosBusqueda">
+            <div></div>
+        </section>
+        <div class="divMensajeError">
+        </div>
+        
+        <section class="container registro">
+            <form id="formRegistroInvisible" class="formRegistroInvisible" action="" method="post">
+                <div class="row">
+                    <div class="col">
+                        <select id="tipoPrenda" class="form-select" aria-label="Default select example">
+                            <option selected>Tipo de Prenda</option>
+                            <option value="Vestido">Vestido</option>
+                            <option value="Blusa">Blusa</option>
+                            <option value="Short">Short</option>
+                            <option value="Falda">Falda</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select id="talla" class="form-select" aria-label="Default select example">
+                            <option selected>Talla</option>
+                            <option value="ch">C - Chica</option>
+                            <option value="md">M - Mediana</option>
+                            <option value="gr">G - Grande</option>
+                            <option value="eg">EG - ExtraGrande</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select id="color" class="form-select" aria-label="Default select example">
+                            <option selected>Color</option>
+                            <option value="Amarillo">🟡 Amarillo</option>
+                            <option value="Azul">🔵 Azul</option>
+                            <option value="Negro">⚫️ Negro</option>
+                            <option value="Rojo">🔴 Rojo</option>
+                            <option value="Verde">🟢 Verde</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="col input-group mb-3">
+                        <span class="input-group-text">Precio</span>
+                        <span class="input-group-text">$</span>
+                        <input id="precio" type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+                      </div>
+                </div>
+                <div class="botonesRegistro row">
+                    <button type="submit" class="btn btn-secondary">Guardar</button>
+                    <button type="reset" class="btn btn-danger">Limpiar</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
     
-    <div>
-        <p>Para ver resultados es necesario abrir la Consola del Inspector del Navegador</p>
-    </div>
-    
-    <script src="./js/main.js"></script>
+
+
+
+    <footer>
+    </footer>
 </body>
 </html>
