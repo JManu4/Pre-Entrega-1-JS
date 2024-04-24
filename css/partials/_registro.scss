@@ -27,19 +27,3 @@
         font-size: 1.5rem;
     }
 }
-
-// cambiar a sweet alert
-.mensajeGuardado {
-    background-color: rgba(0, 131, 65, 0.8);
-    color: white;
-    width: 350px;
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, 25%);
-    padding: 1rem;
-    border-radius: 1rem;
-    font-family: $fontPrincipal;
-    font-size: 1.5rem;
-}
