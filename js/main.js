@@ -1,27 +1,15 @@
 ////////////////////////////////////////////////////////////////////////////////////
-//
-// Pre Entrega 3:
-// 1.- variables, contantes, condicional, ciclos, funciones
-// 2.- obejtos, arrays, HOF
-// 3.- DOM, Eventos, Storage & JSON + HTML & CSS + Operadores avanzados
-// 4.- librerias, fetch
-//
-// Invetario de ropa
-// Usar para registrar entras y salidas del inventario de prendas
-//
+// Comisión 53935
+// JavaScript
 ////////////////////////////////////////////////////////////////////////////////////
 
-// inicio nuevas variables
 let newInventario = [];
 var btnClicked = false;
 var tablaInventario
 var dataFromJson
 
-// inicio funciones
 function limpiarTablaInventario(){
-    while ( tablaInventario.firstChild ){
-        tablaInventario.removeChild(tablaInventario.firstChild);
-    }
+    while ( tablaInventario.firstChild ){ tablaInventario.removeChild(tablaInventario.firstChild) }
 }
 function dibujarTablaInventario(){
     tablaInventario = document.querySelector(".tablaInventario");
@@ -29,6 +17,9 @@ function dibujarTablaInventario(){
     const inventarioTitulos = document.createElement("tr");
     inventarioTitulos.classList.add("inventarioTitulos");
     if ( newInventario.length > 0 ){
+        let numeroDePrendaTh = document.createElement('th');
+        numeroDePrendaTh.textContent = "N° Prendas";
+        inventarioTitulos.appendChild(numeroDePrendaTh);        
         for ( let j = 0; j < Object.keys(newInventario[0]).length; j+=1 ){
             let th = document.createElement("th");
             th.classList.add(`table${Object.keys(newInventario[0])[j]}`)
@@ -39,9 +30,11 @@ function dibujarTablaInventario(){
         thBorrar.textContent = "Borrar";
         inventarioTitulos.appendChild(thBorrar);
         tablaInventario.appendChild(inventarioTitulos);
+        let numeroDePrenda = 1
         newInventario.forEach( (item) => {
             let tr = document.createElement("tr");
             tr.innerHTML = `
+                <td>${numeroDePrenda}</td>
                 <td>${item.tipoPrenda}</td>
                 <td>${item.talla}</td>
                 <td>${item.color}</td>
@@ -49,6 +42,7 @@ function dibujarTablaInventario(){
                 <td>${item.id}</td>
                 <td id="${item.id}"><a class="btnBorrar"><i class="bi bi-trash"></i></a></td>`;
             tablaInventario.appendChild(tr);
+            numeroDePrenda+=1;
             });
     tablaInventario.addEventListener('click',borrarPrenda);
     }
@@ -169,8 +163,6 @@ function mensajeGuardado (){
       timer: 1500
     });
 }
-
-
 function limpiarBusqueda(){
     while (resultadosBusqueda.firstChild) {
         resultadosBusqueda.removeChild(resultadosBusqueda.firstChild);
