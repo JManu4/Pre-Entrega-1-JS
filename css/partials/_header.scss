@@ -1,0 +1,28 @@
+body {
+    background-image: url(../images/background1.jpg);
+    background-size: cover;
+    font-family: $fontPrincipal;
+    
+    position: relative;
+    min-height: 90vh;
+
+
+    header {
+        text-align: center;
+        margin-block: 5rem;
+        font-weight: bold;
+    
+        h1 {
+            font-size: 4rem;
+            text-shadow: 1px 3px 5px pink;
+        }
+        p{
+            font-family: $fontSecundaria;
+        }
+    }
+}
+
+
+
+
+

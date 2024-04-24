@@ -1,0 +1,49 @@
+.formBuscarInvisible {
+    display: none;
+}
+.formBuscarVisible {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-top: 1rem;
+    opacity: 1;
+}
+.resultadosBusqueda {
+    font-family: $fontPrincipal;
+    .encontrado {
+        background-color: hsla(0, 0%, 100%, 0.8);
+        margin-bottom: 1rem;
+        padding: 4rem;
+        border-radius: 1rem;
+        max-width: 80%;
+        margin: 1rem auto;
+        display: flex;
+        gap: 4rem;
+        .encontradoImagenDiv {
+            flex: 1;
+            height: 500px;
+            border-radius: 1rem;
+            position: relative;
+            .encontradoImagen{
+                width: 100%;
+                border-radius: 1rem;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);   
+            }
+        }
+        .encontradoText {
+            flex: 1;
+            font-size: 1.2rem;
+            h3 {
+                font-size: 2rem;
+                font-weight: bold;
+            }
+            p:last-child {
+                font-weight: bold;
+                color: red;
+            }
+        }
+    }
+}

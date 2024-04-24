@@ -1,0 +1,306 @@
+[
+    {
+        "prendaIdNum" : 1,
+        "prendaIdName": "vesama",
+        "img" : "./images/vesama",
+        "nombre": "Vestido",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "Amarillo",
+        "tela" : "Lana",
+        "lavado" : "Variable",
+        "fechaLanzamiento" : "14/Mar/2021"
+    },    
+    {
+        "prendaIdNum" : 2,
+        "prendaIdName": "vesazu",
+        "img" : "./images/vesazu",
+        "nombre": "Vestido",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "Azul",
+        "tela" : "Lino",
+        "lavado" : "Variable",
+        "fechaLanzamiento" : "14/Mar/2021"
+    },
+    {
+        "prendaIdNum" : 3,
+        "prendaIdName": "vesneg",
+        "img" : "./images/vesneg",
+        "nombre": "Vestido",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "negro",
+        "tela" : "Nylon",
+        "lavado" : "Variable",
+        "fechaLanzamiento" : "14/Mar/2021"
+    },
+    {
+        "prendaIdNum" : 4,
+        "prendaIdName": "vesroj",
+        "img" : "./images/vesroj",
+        "nombre": "Vestido",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "rojo",
+        "tela" : "Lino",
+        "lavado" : "Variable",
+        "fechaLanzamiento" : "14/Mar/2021"
+    },    
+    {
+        "prendaIdNum" : 5,
+        "prendaIdName": "vesver",
+        "img" : "./images/vesver",
+        "nombre": "Vestido",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "Verde",
+        "tela" : "Crepé",
+        "lavado" : "Variable",
+        "fechaLanzamiento" : "14/Mar/2021"
+    },
+    {
+        "prendaIdNum" : 6,
+        "prendaIdName": "bluama",
+        "img" : "./images/bluama",
+        "nombre": "Blusa",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "Amarillo",
+        "tela" : "Acrílico",
+        "lavado" : "Variable",
+        "fechaLanzamiento" : "14/Mar/2021"
+    },
+    {
+        "prendaIdNum" : 7,
+        "prendaIdName": "bluazu",
+        "img" : "./images/bluazu",
+        "nombre": "Blusa",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "Azul",
+        "tela" : "Elastano",
+        "lavado" : "Variable",
+        "fechaLanzamiento" : "14/Mar/2021"
+    },
+    {
+        "prendaIdNum" : 8,
+        "prendaIdName": "bluneg",
+        "img" : "./images/bluneg",
+        "nombre": "Blusa",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "Negro",
+        "tela" : "Nylon",
+        "lavado" : "Variable",
+        "fechaLanzamiento" : "14/Mar/2021"
+    },
+    {
+        "prendaIdNum" : 9,
+        "prendaIdName": "bluroj",
+        "img" : "./images/bluroj",
+        "nombre": "Blusa",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "Rojo",
+        "tela" : "Nylon",
+        "lavado" : "Variable",
+        "fechaLanzamiento" : "14/Mar/2021"
+    },
+    {
+        "prendaIdNum" : 10,
+        "prendaIdName": "bluver",
+        "img" : "./images/bluver",
+        "nombre": "Blusa",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "Verde",
+        "tela" : "Nylon",
+        "lavado" : "Variable",
+        "fechaLanzamiento" : "14/Mar/2021"
+    },
+    {
+        "prendaIdNum" : 11,
+        "prendaIdName": "shoama",
+        "img" : "./images/shoama",
+        "nombre": "Short",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "Amarillo",
+        "tela" : "Mesclilla",
+        "lavado" : "Variable",
+        "fechaLanzamiento" : "14/Mar/2021"
+    },
+    {
+        "prendaIdNum" : 12,
+        "prendaIdName": "shoazu",
+        "img" : "./images/shoazu",
+        "nombre": "Short",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "Azul",
+        "tela" : "Mesclilla",
+        "lavado" : "Variable",
+        "fechaLanzamiento" : "14/Mar/2021"
+    },
+    {
+        "prendaIdNum" : 13,
+        "prendaIdName": "shoneg",
+        "img" : "./images/shoneg",
+        "nombre": "Short",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "Negro",
+        "tela" : "Mesclilla",
+        "lavado" : "Variable",
+        "fechaLanzamiento" : "14/Mar/2021"
+    },
+    {
+        "prendaIdNum" : 14,
+        "prendaIdName": "falama",
+        "img" : "./images/falama",
+        "nombre": "Falda",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "Amarillo",
+        "tela" : "Lana",
+        "lavado" : "Variable",
+        "fechaLanzamiento" : "14/Mar/2021"
+    },
+    {
+        "prendaIdNum" : 15,
+        "prendaIdName": "falazu",
+        "img" : "./images/falazu",
+        "nombre": "Falda",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "Azul",
+        "tela" : "Nylon",
+        "lavado" : "Variable",
+        "fechaLanzamiento" : "14/Mar/2021"
+    },
+    {
+        "prendaIdNum" : 16,
+        "prendaIdName": "falneg",
+        "img" : "./images/falneg",
+        "nombre": "Falda",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "Negro",
+        "tela" : "Algodón",
+        "lavado" : "Variable",
+        "fechaLanzamiento" : "14/Mar/2021"
+    },
+    {
+        "prendaIdNum" : 17,
+        "prendaIdName": "falroj",
+        "img" : "./images/falroj",
+        "nombre": "Falda",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "Rojo",
+        "tela" : "Algodón",
+        "lavado" : "Variable",
+        "fechaLanzamiento" : "14/Mar/2021"
+    },
+    {
+        "prendaIdNum" : 18,
+        "prendaIdName": "falver",
+        "img" : "./images/falver",
+        "nombre": "Falda",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "Verde",
+        "tela" : "Algodón",
+        "lavado" : "A mano",
+        "fechaLanzamiento" : "14/Mar/2021"
+    },
+    {
+        "prendaIdNum" : 19,
+        "prendaIdName": "otro",
+        "img" : "./images/otro1",
+        "nombre": "Falda",
+        "talla": [
+            "ch",
+            "md",
+            "gr",
+            "eg"
+        ],
+        "color": "Otro",
+        "tela" : "Varias",
+        "lavado" : "Variable",
+        "fechaLanzamiento" : "14/Mar/2021"
+    }
+ ]

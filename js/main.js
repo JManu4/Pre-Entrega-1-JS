@@ -4,24 +4,27 @@
 // 1.- variables, contantes, condicional, ciclos, funciones
 // 2.- obejtos, arrays, HOF
 // 3.- DOM, Eventos, Storage & JSON + HTML & CSS + Operadores avanzados
+// 4.- librerias, fetch
 //
 // Invetario de ropa
-// Usar para registrar entras y salidas del inventario de prendas 
+// Usar para registrar entras y salidas del inventario de prendas
 //
 ////////////////////////////////////////////////////////////////////////////////////
 
 // inicio nuevas variables
 let newInventario = [];
 var btnClicked = false;
+var tablaInventario
+var dataFromJson
 
 // inicio funciones
 function limpiarTablaInventario(){
-    while ( todoElInventario.firstChild ){
-        todoElInventario.removeChild(todoElInventario.firstChild);
+    while ( tablaInventario.firstChild ){
+        tablaInventario.removeChild(tablaInventario.firstChild);
     }
 }
 function dibujarTablaInventario(){
-    todoElInventario = document.querySelector(".todoElInventario");
+    tablaInventario = document.querySelector(".tablaInventario");
     limpiarTablaInventario();
     const inventarioTitulos = document.createElement("tr");
     inventarioTitulos.classList.add("inventarioTitulos");
@@ -32,7 +35,10 @@ function dibujarTablaInventario(){
             th.textContent = `${Object.keys(newInventario[0])[j].toUpperCase()}`
             inventarioTitulos.appendChild(th);
         }
-        todoElInventario.appendChild(inventarioTitulos);
+        let thBorrar = document.createElement('th');
+        thBorrar.textContent = "Borrar";
+        inventarioTitulos.appendChild(thBorrar);
+        tablaInventario.appendChild(inventarioTitulos);
         newInventario.forEach( (item) => {
             let tr = document.createElement("tr");
             tr.innerHTML = `
@@ -40,13 +46,40 @@ function dibujarTablaInventario(){
                 <td>${item.talla}</td>
                 <td>${item.color}</td>
                 <td>${item.precio}</td>
-                <td>${item.id}</td>`;
-            todoElInventario.appendChild(tr);
+                <td>${item.id}</td>
+                <td id="${item.id}"><a class="btnBorrar"><i class="bi bi-trash"></i></a></td>`;
+            tablaInventario.appendChild(tr);
             });
+    tablaInventario.addEventListener('click',borrarPrenda);
     }
-    else { busquedaSinResultados() };
+    else { busquedaSinResultados("Inventario vacio") };
+    sincronizarStorage();
 }
-
+function borrarPrenda (evt) {
+    evt.preventDefault;
+    Swal.fire({
+        title: "Confirma eliminación",
+        text: "Este cambio es irreversible",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "¡Si, borrar!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+        Swal.fire({
+            title: "Borrada",
+            text: "Prenda borrada de inventario.",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500
+        });
+        newInventario = newInventario.filter( item => item.id != evt.target.parentElement.parentElement.id )
+        dibujarTablaInventario();
+        }
+    });
+}
 function classesOpcionSelected (a,b,c){
     a.classList.add("paraArribaClass");
     a.classList.remove("inv_opcion");
@@ -58,14 +91,14 @@ function classesOpcionSelected (a,b,c){
     a.appendChild(iconoVolverInicio);
 
     a == invOpcionTodo && dibujarTablaInventario();
-    a == invOpcionRegistrar && formRegistro.classList.remove("formRegistroInvisible"); formRegistro.classList.add("formRegistroVisible"); formRegistro.reset();
     a == invOpcionBuscar && formBuscar.classList.remove("formBuscarInvisible"); formBuscar.classList.add("formBuscarVisible");formBuscar.reset();
+    a == invOpcionRegistrar && formRegistro.classList.remove("formRegistroInvisible"); formRegistro.classList.add("formRegistroVisible"); formRegistro.reset();
 
-    b.classList.add("btnInvisible");    
+    b.classList.add("btnInvisible");
     b.classList.add("inv_opcion");
     b.classList.remove("btnVisible");
     b.classList.remove("paraAbajoClass");
-    c.classList.add("btnInvisible");    
+    c.classList.add("btnInvisible");
     c.classList.add("inv_opcion");
     c.classList.remove("btnVisible");
     c.classList.remove("paraAbajoClass");
@@ -79,9 +112,9 @@ function classesOpcionDesSelected (x,y,z) {
     x == invOpcionBuscar && limpiarBusqueda();
 
     y.classList.add("btnVisible");
-    y.classList.remove("btnInvisible"); 
+    y.classList.remove("btnInvisible");
     z.classList.add("btnVisible");
-    z.classList.remove("btnInvisible"); 
+    z.classList.remove("btnInvisible");
     setTimeout ( () => {
         x.classList.add("inv_opcion");
         x.classList.remove("paraAbajoClass");
@@ -94,7 +127,6 @@ function classesOpcionDesSelected (x,y,z) {
     formBuscar.classList.add("formBuscarInvisible");
     formBuscar.classList.remove("formBuscarVisible");
 }
-
 function invOpcionTodoSelected ( selected ) {
     if ( selected == "invOpcionTodo" ){
         var selected = invOpcionTodo;
@@ -111,97 +143,124 @@ function invOpcionTodoSelected ( selected ) {
         var notSelected1 = invOpcionBuscar;
         var notSelected2 = invOpcionTodo;
     }
-    btnClicked == false ? 
+    btnClicked == false ?
     (classesOpcionSelected (selected,notSelected1,notSelected2),btnClicked = true) : (classesOpcionDesSelected (selected,notSelected1,notSelected2),btnClicked = false);
     return btnClicked;
 }
-function guardarPrenda(evt){
-    evt.preventDefault();        
-    formRegistroPreda = Array.from( document.querySelectorAll("#formRegistroInvisible select, #formRegistroInvisible input") ).reduce((acumulador, detalleDePrenda) => ({ ...acumulador, [detalleDePrenda.id] : detalleDePrenda.value}) , {});
-    
-    formRegistroPreda.id = Date.now().toString(16).slice(5);
 
+function guardarPrenda(evt){
+    evt.preventDefault();
+    formRegistroPreda = Array.from( document.querySelectorAll("#formRegistroInvisible select, #formRegistroInvisible input") ).reduce((acumulador, detalleDePrenda) => ({ ...acumulador, [detalleDePrenda.id] : detalleDePrenda.value}) , {});
+    formRegistroPreda.id = Date.now().toString(16).slice(5);
     newInventario.push(formRegistroPreda);
-    console.log(newInventario);
     formRegistro.reset();
+    mensajeGuardado();
     sincronizarStorage();
 }
 function sincronizarStorage (){
     localStorage.setItem('newInventario', JSON.stringify(newInventario));
-    mensajeGuardado();
 }
 function mensajeGuardado (){
-    const txtGuardado = document.createElement("p");
-    txtGuardado.innerHTML = `¡Prenda guardada! <br> <i class="bi bi-send-check"></i>`;
-    txtGuardado.classList.add("mensajeGuardado");
-
-    const divMensajeError = document.querySelector(".divMensajeError");
-    divMensajeError.appendChild(txtGuardado);
-    setTimeout( () => { txtGuardado.remove() }, 1500 );
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Prenda guardada",
+      showConfirmButton: false,
+      timer: 1500
+    });
 }
+
 
 function limpiarBusqueda(){
     while (resultadosBusqueda.firstChild) {
         resultadosBusqueda.removeChild(resultadosBusqueda.firstChild);
     }
 }
-function mostrarPrendas (xxx) {
+function mostrarPrendas (inventarioFiltrado) {
     limpiarBusqueda();
-    xxx.forEach( item => {
-        const encontrado = document.createElement("div");
-        encontrado.classList.add("encontrado");
-        item.tipoPrenda == "Vestido" ? imgPrenda = "vestido1.jpg" : item.tipoPrenda == "Blusa" ? imgPrenda = "blusa1.jpeg" : item.tipoPrenda == "Short" ? imgPrenda = "short.jpeg" : item.tipoPrenda == "Falda"? imgPrenda = "falda1.jpeg" : imgPrenda = "otro2.jpeg"
-        encontrado.innerHTML += `
+    const enInventarioVestidos = inventarioFiltrado.reduce( (contador, prenda) => prenda.tipoPrenda === "Vestido" ? contador+=1 : contador, 0 );
+    const enInventarioBlusas = inventarioFiltrado.reduce( (contador, prenda) => prenda.tipoPrenda === "Blusa" ? contador+=1 : contador, 0 );
+    const enInventarioShorts = inventarioFiltrado.reduce( (contador, prenda) => prenda.tipoPrenda === "Short" ? contador+=1 : contador, 0 );
+    const enInventarioFaldas = inventarioFiltrado.reduce( (contador, prenda) => prenda.tipoPrenda === "Falda" ? contador+=1 : contador, 0 );
+    const enInventarioOtros = inventarioFiltrado.reduce( (contador, prenda) => prenda.tipoPrenda === "Otro" ? contador+=1 : contador, 0 );
+    
+    inventarioFiltrado.forEach( async (item) => {
+        let enInventarioCantidad;
+        item.tipoPrenda == "Vestido" ? enInventarioCantidad = enInventarioVestidos
+        : item.tipoPrenda == "Blusa" ? enInventarioCantidad = enInventarioBlusas
+        : item.tipoPrenda == "Short" ? enInventarioCantidad = enInventarioShorts
+        : item.tipoPrenda == "Falda" ? enInventarioCantidad = enInventarioFaldas
+        : enInventarioCantidad = enInventarioOtros
+
+        await fetch("./detallesPiezasEnInvetario.json")
+            .then( respuesta => respuesta.json() )
+            .then( jsonData => {
+                item.tipoPrenda == "Otro" ? (idFrominventarioFiltrado = "otro") : (idFrominventarioFiltrado = item.tipoPrenda.slice(0,3).toLowerCase() + item.color.slice(0,3).toLowerCase());
+                dataFromJson = jsonData.filter(item => item.prendaIdName == idFrominventarioFiltrado );
+                return dataFromJson;
+                }
+            )
+            .catch(
+                err => {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error al obtener datos",
+                        text: err,
+                      });
+                }
+            )
+        const tallaIndex = dataFromJson[0].talla.findIndex( x => x == item.talla)
+        const encontradoCardDiv = document.createElement("div");
+        encontradoCardDiv.classList.add("encontrado");
+        encontradoCardDiv.innerHTML += `
             <div class="encontradoImagenDiv">
-                <img class="encontradoImagen" src="./images/${imgPrenda}" alt="">
+                <img class="encontradoImagen" src="${dataFromJson[0].img}.jpeg" alt="">
             </div>
-                <div class="encontradoText">
-                <h3>${item.tipoPrenda}</h3>
-                <p>Color: ${item.color}</p>
-                <p>Talla: ${item.talla}</p>
+            <div class="encontradoText">
+                <h3>${dataFromJson[0].nombre}</h3>
+                <p>Color: ${dataFromJson[0].color}</p>
+                <p>Talla: ${dataFromJson[0].talla[tallaIndex]}</p>
                 <p>MXN $ ${item.precio}</p>
-                <p>En inventario: #</p>
+                <p>Tipo de tela: ${dataFromJson[0].tela}</p>
+                <p>Lavado: ${dataFromJson[0].lavado}</p>
+                <p>En inventario (por tipo de prenda): # ${enInventarioCantidad}</p>
             </div>`;
-        resultadosBusqueda.appendChild(encontrado);
-        return encontrado;
+        resultadosBusqueda.appendChild(encontradoCardDiv);
+        return encontradoCardDiv;
     } );
 }
-function busquedaSinResultados(){
-    const sinResultados = document.createElement("p");
-    sinResultados.innerHTML = `¡Sin Resultados! <br> <i class="bi bi-x-square"></i>`;
-    sinResultados.classList.add("sinResultados");
-
-    const divMensajeError = document.querySelector(".divMensajeError");
-    divMensajeError.appendChild(sinResultados);
-    setTimeout( () => { sinResultados.remove() }, 1500 );
+function busquedaSinResultados(msjError){
+    Swal.fire({
+        icon: "error",
+        title: "Busqueda sin resultados",
+        text: msjError,
+      });
 }
-//// En estas funciones de filtro no supe como optimizar el 'if'
-    function filtrarXTipoDePrenda (item) {  
-        if (datosAbuscar.buscarTipoPrendaId) {
-            return item.tipoPrenda === datosAbuscar.buscarTipoPrendaId;
-        }
-        return item;
-    }
-    function filtrarXTalla (item) {  
-        if (datosAbuscar.buscarTallaId) {
-            return item.talla === datosAbuscar.buscarTallaId;
-        }
-        return item;
-    }
-    function filtrarXColor (item) {  
-        if (datosAbuscar.buscarColorId) {
-            return item.color === datosAbuscar.buscarColorId;
-        }
-        return item;
-    }
 function buscarPrenda(evtt){
     evtt.preventDefault();
     limpiarBusqueda();
-    datosAbuscar = Array.from( document.querySelectorAll("#formBuscarInvisible select, #formBuscarInvisible input") ).reduce((acumulador, detalleDePrenda) => ({ ...acumulador, [detalleDePrenda.id] : detalleDePrenda.value}) , {}); 
-    const resultado = newInventario.filter( filtrarXTipoDePrenda ).filter( filtrarXTalla ).filter( filtrarXColor ) ;
-    resultado.length > 0 ? mostrarPrendas(resultado) : busquedaSinResultados();
+    datosAbuscar = Array.from( document.querySelectorAll("#formBuscarInvisible select, #formBuscarInvisible input") ).reduce((acumulador, detalleDePrenda) => ({ ...acumulador, [detalleDePrenda.id] : detalleDePrenda.value}) , {});
+    const inventarioFiltrado = newInventario.filter( filtrarXTipoDePrenda ).filter( filtrarXTalla ).filter( filtrarXColor ) ;
+    inventarioFiltrado.length > 0 ? mostrarPrendas(inventarioFiltrado) : busquedaSinResultados("Intente ajustar filtros o revisar todo el inventario.");
 }
-// fin funciones
+function filtrarXTipoDePrenda (item) {
+    if (datosAbuscar.buscarTipoPrendaId) {
+        return item.tipoPrenda === datosAbuscar.buscarTipoPrendaId;
+    }
+    return item;
+}
+function filtrarXTalla (item) {
+    if (datosAbuscar.buscarTallaId) {
+        return item.talla === datosAbuscar.buscarTallaId;
+    }
+    return item;
+}
+function filtrarXColor (item) {
+    if (datosAbuscar.buscarColorId) {
+        return item.color === datosAbuscar.buscarColorId;
+    }
+    return item;
+}
 
 // inicio DOM
 const invOpcionTodo = document.querySelector(".inv_opcion_todo");
@@ -210,7 +269,7 @@ const invOpcionRegistrar = document.querySelector(".inv_opcion_registrar");
 invOpcionTodo.addEventListener("click", ()=> {invOpcionTodoSelected("invOpcionTodo")});
 invOpcionBuscar.addEventListener("click", ()=> {invOpcionTodoSelected("invOpcionBuscar")});
 invOpcionRegistrar.addEventListener("click", ()=> {invOpcionTodoSelected("invOpcionRegistrar")});
-    
+
 const formBuscar = document.querySelector("#formBuscarInvisible");
 formBuscar.addEventListener("submit", buscarPrenda);
 const resultadosBusqueda = document.querySelector(".resultadosBusqueda");
